@@ -35,7 +35,7 @@ word = 0
 with open("A.txt", 'r') as data_dict:
     file_text = data_dict.read().splitlines()
     print(file_text)
-    for file in os.listdir("./1")[0:]:
+    for file in os.listdir("./1")[1131:]:
         try:
             print(file + " opened")
             pdfText = convert_pdf_to_txt("./1/" + file)
@@ -44,9 +44,9 @@ with open("A.txt", 'r') as data_dict:
             line_index: int = 0
             while line_index < pdfText.__len__():
                 pdfText[line_index] = pdfText[line_index].replace('\n', ' ')
-                v = 0
-                while v < file_text.__len__():
-                    line = file_text[v].split('|')
+                counter = 0
+                while counter < file_text.__len__():
+                    line = file_text[counter].split('|')
                     for word_list in line:
                         test = True
                         if word_list == line[-1]:
@@ -59,8 +59,7 @@ with open("A.txt", 'r') as data_dict:
                                 test = False
                                 try:
                                     line[-2].index(word)
-                                    with open("./Community_" + file_name + ".txt", 'a+') as out_file:
-                                        # print("Writing to " + word + ".txt has begun")
+                                    with open("./final/Community_" + file_name + ".txt", 'a+') as out_file:
                                         out_file.write('\n\n')
                                         out_file.write(
                                             '--------------------------------------------------------------------------'
@@ -68,23 +67,17 @@ with open("A.txt", 'r') as data_dict:
                                             + line[-1] +
                                             '--------------------------------------------------------------------------'
                                             '-------------------------------------------------- \n')
-                                        # print((pdfText[line_index].encode('ascii', 'ignore')).decode('utf-8') + '\n')
                                         out_file.write(
                                             (pdfText[line_index].encode('ascii', 'ignore')).decode('utf-8') + '\n')
-                                        # print("Writing to " + word + ".txt has executed")
                                         out_file.write('\n\n')
                                     break
                                 except ValueError:
                                     pass
                             except ValueError:
                                 pass
-                                # print("string_test")
                         if test:
                             break
-                        # except ValueError:
-                        #     continue
-                        #     # print("g")
-                    v += 1
+                    counter += 1
                 line_index = line_index + 1
         except ValueError:
             print(file + "failed")
