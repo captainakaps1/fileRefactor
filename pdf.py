@@ -30,12 +30,15 @@ def convert_pdf_to_txt(path):
     retstr.close()
     return text
 
+
 word_list = ''
 word = 0
-with open("A.txt", 'r') as data_dict:
+section_type = ""
+
+with open("words_list.txt", 'r') as data_dict:
     file_text = data_dict.read().splitlines()
     print(file_text)
-    for file in os.listdir("./1")[1131:]:
+    for file in os.listdir("./1")[:]:
         try:
             print(file + " opened")
             pdfText = convert_pdf_to_txt("./1/" + file)
