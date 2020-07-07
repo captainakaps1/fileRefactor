@@ -60,7 +60,6 @@ with open("words_list.txt", 'r') as data_dict:
                             break
                         word_list = word_list.split(',')
                         for word in word_list:
-                            ####################################
                             try:
                                 pdfText[line_index].upper().index(word.upper())
                                 string_test = pdfText[line_index]
