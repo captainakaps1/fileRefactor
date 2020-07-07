@@ -49,6 +49,10 @@ with open("words_list.txt", 'r') as data_dict:
                 pdfText[line_index] = pdfText[line_index].replace('\n', ' ')
                 counter = 0
                 while counter < file_text.__len__():
+                    if file_text[counter].isupper():
+                        section_type = file_text[counter]
+                        counter += 1
+                        continue
                     line = file_text[counter].split('|')
                     for word_list in line:
                         test = True
@@ -56,13 +60,19 @@ with open("words_list.txt", 'r') as data_dict:
                             break
                         word_list = word_list.split(',')
                         for word in word_list:
+                            ####################################
                             try:
                                 pdfText[line_index].upper().index(word.upper())
                                 string_test = pdfText[line_index]
                                 test = False
                                 try:
-                                    line[-2].index(word)
-                                    with open("./final/Community_" + file_name + ".txt", 'a+') as out_file:
+                                    line[-2].index(word)  # makes the last word set a requirement to write the sentence
+                                    try:
+                                        os.mkdir("./final/" + str(section_type))
+                                    except:
+                                        pass
+                                    with open("./final/" + str(section_type) + "/" + file_name + ".txt",
+                                              'a+') as out_file:
                                         out_file.write('\n\n')
                                         out_file.write(
                                             '--------------------------------------------------------------------------'
